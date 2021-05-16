@@ -61,7 +61,7 @@ contract TaxWithholding {
       checking = _checking;
     }
     
-    function withholdTax(uint256 _income, uint8 _taxRate, IERC20 tokenAddress) private returns(uint256, uint256, uint16) {
+    function withholdTax(uint256 _income, uint8 _taxRate, IERC20 tokenAddress) public onlyOwner returns(uint256, uint256, uint16) {
         require(_taxRate > 0 && _taxRate < 100, "Submit tax rate percentage as whole number, for example 25");
         tokenAddress.transfer(address(this), _income); // send gross income to this contract
         uint256 _taxedAmt = (uint256(_income/uint256(_taxRate)));
